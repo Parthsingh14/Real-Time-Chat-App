@@ -4,14 +4,18 @@ import { Server } from "socket.io";
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: '*',
+    }
+});
 
 app.get("/", (req,res) => {
     res.send(`<h1> Hello Parth </h1>`);
 })
 
 io.on("connection", (socket) => {
-    console.log('a user connected')
+    console.log('a user connected',socket.id)
 })
 
 server.listen(3000, ()=>{

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import connectWS from "./ws";
 
 function App() {
   const [messages, setMessages] = useState([
@@ -7,6 +8,11 @@ function App() {
   ]);
 
   const [input, setInput] = useState("");
+  const socket = useRef(null);
+
+  useEffect(()=>{
+    socket.current = connectWS();
+  }, [])
   
   const handleSend = () => {
     if (!input.trim()) return;
